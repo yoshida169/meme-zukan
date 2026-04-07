@@ -1,0 +1,168 @@
+import Link from "next/link";
+import Image from "next/image";
+import type { Meme } from "@/types/meme";
+
+interface MemeCardProps {
+  meme: Meme;
+}
+
+const popularityColor: Record<string, string> = {
+  "🔥大流行": "#cc0000",
+  "😊中規模": "#006600",
+  "🌱ニッチ": "#666666",
+};
+
+export default function MemeCard({ meme }: MemeCardProps) {
+  return (
+    <Link
+      href={`/meme/${meme.slug}`}
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
+      <table
+        cellPadding={0}
+        cellSpacing={0}
+        width="100%"
+        style={{
+          border: "2px outset #cccccc",
+          background: "#ffffff",
+          cursor: "pointer",
+          fontFamily: "'MS PGothic', 'MS Gothic', sans-serif",
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLTableElement).style.background = "#fffde0";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLTableElement).style.background = "#ffffff";
+        }}
+      >
+        <tbody>
+          <tr>
+            <td
+              style={{
+                background: "#ff6600",
+                color: "#ffffff",
+                fontSize: "11px",
+                fontWeight: "bold",
+                padding: "2px 4px",
+                borderBottom: "1px solid #cc4400",
+              }}
+              colSpan={2}
+            >
+              {meme.name}
+            </td>
+          </tr>
+          <tr>
+            <td
+              colSpan={2}
+              style={{
+                padding: "0",
+                textAlign: "center",
+                background: "#f0f0f0",
+                height: "100px",
+                overflow: "hidden",
+              }}
+            >
+              {meme.thumbnailUrl ? (
+                <Image
+                  src={meme.thumbnailUrl}
+                  alt={meme.name}
+                  width={160}
+                  height={100}
+                  style={{
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "100px",
+                    display: "block",
+                  }}
+                  unoptimized
+                />
+              ) : (
+                <div
+                  style={{
+                    height: "100px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "32px",
+                    background: "#dddddd",
+                  }}
+                >
+                  🌐
+                </div>
+              )}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{
+                fontSize: "10px",
+                padding: "2px 4px",
+                color: "#333",
+                verticalAlign: "top",
+                borderTop: "1px solid #ddd",
+              }}
+            >
+              {meme.description ? (
+                <span>
+                  {meme.description.length > 40
+                    ? meme.description.slice(0, 40) + "…"
+                    : meme.description}
+                </span>
+              ) : (
+                <span style={{ color: "#999" }}>説明なし</span>
+              )}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{
+                background: "#f5f5f5",
+                borderTop: "1px solid #ddd",
+                padding: "2px 4px",
+                fontSize: "10px",
+              }}
+            >
+              {meme.tags.slice(0, 3).map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    display: "inline-block",
+                    background: "#003399",
+                    color: "#fff",
+                    padding: "0px 3px",
+                    marginRight: "2px",
+                    fontSize: "9px",
+                    borderRadius: "1px",
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+              {meme.year && (
+                <span style={{ color: "#666", marginLeft: "2px" }}>
+                  {meme.year}年
+                </span>
+              )}
+            </td>
+            <td
+              align="right"
+              style={{
+                background: "#f5f5f5",
+                borderTop: "1px solid #ddd",
+                padding: "2px 4px",
+                fontSize: "10px",
+                color: meme.popularity
+                  ? popularityColor[meme.popularity]
+                  : "#999",
+                fontWeight: "bold",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {meme.popularity ?? ""}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </Link>
+  );
+}

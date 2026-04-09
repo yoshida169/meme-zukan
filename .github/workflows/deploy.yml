@@ -1,9 +1,8 @@
 name: Build & Deploy to Cloudflare Pages
 
 on:
-  schedule:
-    # 6時間ごとに自動ビルド (UTC)
-    - cron: "0 */6 * * *"
+  repository_dispatch:
+    types: [notion_updated]
   workflow_dispatch:
     # GitHub ActionsのUIから手動実行も可能
 

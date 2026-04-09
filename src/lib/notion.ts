@@ -8,6 +8,19 @@ import type { Meme, Origin, Popularity } from "@/types/meme";
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const DATABASE_ID = process.env.NOTION_DATABASE_ID!;
 
+let _dataSourceId: string | null = null;
+
+async function getDataSourceId(): Promise<string> {
+  if (_dataSourceId) return _dataSourceId;
+  const db = await notion.databases.retrieve({ database_id: DATABASE_ID });
+  const dataSources = (db as any).data_sources;
+  if (!dataSources || dataSources.length === 0) {
+    throw new Error("Database has no data sources");
+  }
+  _dataSourceId = dataSources[0].id;
+  return _dataSourceId;
+}
+
 function extractTitle(page: PageObjectResponse, prop: string): string {
   const p = page.properties[prop];
   if (p?.type === "title") {
@@ -92,12 +105,13 @@ function pageToMeme(page: PageObjectResponse): Meme {
 }
 
 export async function getAllMemes(): Promise<Meme[]> {
+  const dataSourceId = await getDataSourceId();
   const results: PageObjectResponse[] = [];
   let cursor: string | undefined;
 
   do {
     const res: QueryDataSourceResponse = await notion.dataSources.query({
-      data_source_id: DATABASE_ID,
+      data_source_id: dataSourceId,
       filter: {
         property: "status",
         select: { equals: "published" },
@@ -109,7 +123,8 @@ export async function getAllMemes(): Promise<Meme[]> {
 
     results.push(
       ...(res.results.filter(
-        (r): r is PageObjectResponse => r.object === "page" && "properties" in r
+        (r): r is PageObjectResponse =>
+          r.object === "page" && "properties" in r
       ))
     );
     cursor = res.has_more ? (res.next_cursor ?? undefined) : undefined;
@@ -119,8 +134,9 @@ export async function getAllMemes(): Promise<Meme[]> {
 }
 
 export async function getMemeBySlug(slug: string): Promise<Meme | null> {
+  const dataSourceId = await getDataSourceId();
   const res: QueryDataSourceResponse = await notion.dataSources.query({
-    data_source_id: DATABASE_ID,
+    data_source_id: dataSourceId,
     filter: {
       property: "slug",
       rich_text: { equals: slug },

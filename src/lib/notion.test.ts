@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
-// vi.mock はホイストされるため、モック関数も vi.hoisted() でホイストする
+
 const { retrieveMock, queryMock } = vi.hoisted(() => ({
   retrieveMock: vi.fn(),
   queryMock: vi.fn(),
@@ -81,6 +81,7 @@ async function loadNotion() {
 }
 
 beforeEach(() => {
+  process.env.NOTION_DATABASE_ID = "test-db-id";
   retrieveMock.mockReset();
   queryMock.mockReset();
 });

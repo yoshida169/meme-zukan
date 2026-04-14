@@ -38,20 +38,21 @@
       "Bash(npm view:*)",
       "Bash(npm outdated:*)",
 
-      "Bash(firecrawl *)",
-      "Bash(node *)",
-      "Bash(mkdir *)",
-      "Bash(cp *)",
-      "Bash(test *)",
-      "Bash(date *)",
-      "Bash(set *)",
-      "Bash(source *)",
-      "Bash(nohup *)",
-      "Bash(kill *)",
-      "Bash(python *)",
-      "Bash(python3 *)",
-      "Bash(jq *)",
-      "Bash(node --check *)"
+      "WebSearch",
+
+      "Bash(firecrawl:*)",
+      "Bash(node:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(test:*)",
+      "Bash(date:*)",
+      "Bash(set:*)",
+      "Bash(source:*)",
+      "Bash(nohup:*)",
+      "Bash(kill:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(jq:*)"
     ]
   }
 }

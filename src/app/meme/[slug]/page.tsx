@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getAllMemes, getMemeBySlug } from "@/lib/notion";
+import ViewTracker from "@/components/ViewTracker";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -356,6 +357,8 @@ export default async function MemePage({ params }: Props) {
           ◀ 一覧に戻る
         </Link>
       </div>
+
+      <ViewTracker slug={meme.slug} />
     </div>
   );
 }

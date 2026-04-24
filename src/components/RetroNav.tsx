@@ -90,6 +90,22 @@ export default function RetroNav({ tags }: RetroNavProps) {
               ▶ 人気順
             </Link>
           </li>
+          <li>
+            <Link
+              href="/timeline"
+              style={{ color: "#0000cc", textDecoration: "none" }}
+            >
+              ▶ ミーム年表
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/ranking"
+              style={{ color: "#cc0000", textDecoration: "none" }}
+            >
+              ▶ 人気ランキング
+            </Link>
+          </li>
         </ul>
       </NavSection>
 

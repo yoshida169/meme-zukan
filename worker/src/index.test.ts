@@ -1,10 +1,18 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import worker from "./index";
+import type { Env } from "./types";
 
-const env = {
+const env: Env = {
   GITHUB_REPO: "owner/repo",
   GITHUB_TOKEN: "ghp_test",
   NOTION_WEBHOOK_SECRET: "secret",
+  ALLOWED_ORIGIN: "https://example.pages.dev",
+  // 既存 Webhook テストは D1 を使わないのでダミー
+  DB: {
+    prepare: () => {
+      throw new Error("DB should not be used in webhook tests");
+    },
+  } as unknown as Env["DB"],
 };
 
 function makeRequest(body: unknown, init: RequestInit = {}) {

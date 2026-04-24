@@ -17,8 +17,12 @@ async function getDataSourceId(): Promise<string> {
   if (!dataSources || dataSources.length === 0) {
     throw new Error("Database has no data sources");
   }
-  _dataSourceId = dataSources[0].id;
-  return _dataSourceId;
+  const id = dataSources[0].id;
+  if (typeof id !== "string") {
+    throw new Error("Data source id is missing");
+  }
+  _dataSourceId = id;
+  return id;
 }
 
 function extractTitle(page: PageObjectResponse, prop: string): string {

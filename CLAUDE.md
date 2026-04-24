@@ -24,6 +24,7 @@ lint/format の設定はない。
 ビルド時に以下が必要:
 - `NOTION_API_KEY` — Notion APIキー
 - `NOTION_DATABASE_ID` — ミームデータベースのID
+- `NEXT_PUBLIC_WORKER_URL` — 閲覧数ランキング用 Worker の URL（未設定時は ViewTracker/RankingClient が no-op になりビルドは壊れない）
 
 ## Architecture
 
@@ -41,9 +42,10 @@ Notion DB → `src/lib/notion.ts` (Notion API v2025-09-03, dataSources.query) �
 ### Routes
 
 - `/` — ミーム一覧（MemeGrid）
-- `/meme/[slug]` — ミーム詳細（`generateStaticParams` で全slug事前生成）
+- `/meme/[slug]` — ミーム詳細（`generateStaticParams` で全slug事前生成、`ViewTracker` で閲覧数計測）
 - `/tag/[tag]` — タグ別一覧
 - `/timeline` — 年代別ミーム年表（年で降順グルーピング、年内はpopularity順、デケード・ジャンプリンクあり）
+- `/ranking` — 累計閲覧数ランキング（SSG外郭 + Client Component で Worker からランキング取得）
 - `/about` — サイト概要
 
 ### Notion DB Properties
@@ -59,8 +61,14 @@ Notion DB → `src/lib/notion.ts` (Notion API v2025-09-03, dataSources.query) �
 
 ### Worker (Cloudflare)
 
-- `worker/src/index.ts` は Notion Webhook を受け取り、GitHub API の `repository_dispatch`（event type `notion_updated`）を叩いてデプロイワークフローをキックする Cloudflare Worker
-- 対象イベント: `page.created`、`page.properties_updated`、`database.content_updated` など
+- `worker/src/index.ts` は path-based router。以下の 3 役割を担う:
+  - `POST /api/view` → `handlers/view.ts`: bot UA 判定 → D1 `meme_views` を `waitUntil` で UPSERT → 204
+  - `GET /api/ranking` → `handlers/ranking.ts`: D1 から TOP N を SELECT → JSON + `Cache-Control: max-age=300` + CORS
+  - それ以外（`POST /`） → `handlers/webhook.ts`: Notion Webhook → GitHub `repository_dispatch: notion_updated`
+- 対象Webhookイベント: `page.created`、`page.properties_updated`、`database.content_updated` など
+- 設定は `worker/wrangler.jsonc`（D1 binding 含む）。マイグレーションは `worker/migrations/`
+- 必要 secrets: `GITHUB_REPO`, `GITHUB_TOKEN`, `NOTION_WEBHOOK_SECRET`, `ALLOWED_ORIGIN`（CORS 用 Pages ドメイン）
+- セットアップ手順は `docs/ranking-setup.md`
 - Next.js 本体とは **別デプロイ**（Wrangler で配信）
 
 ### Deployment

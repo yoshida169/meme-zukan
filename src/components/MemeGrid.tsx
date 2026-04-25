@@ -9,17 +9,8 @@ interface MemeGridProps {
   memes: Meme[];
 }
 
-const popularityOrder: Record<string, number> = {
-  "🔥大流行": 0,
-  "😊中規模": 1,
-  "🌱ニッチ": 2,
-};
-
 export default function MemeGrid({ memes }: MemeGridProps) {
   const searchParams = useSearchParams();
-  const [sort, setSort] = useState<"new" | "year" | "popular">(
-    (searchParams.get("sort") as "new" | "year" | "popular") ?? "new"
-  );
   const [origin, setOrigin] = useState(searchParams.get("origin") ?? "");
   const [tag, setTag] = useState(searchParams.get("tag") ?? "");
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
@@ -43,22 +34,13 @@ export default function MemeGrid({ memes }: MemeGridProps) {
     if (origin) list = list.filter((m) => m.origin === origin);
     if (tag) list = list.filter((m) => m.tags.includes(tag));
 
-    if (sort === "year")
-      list.sort((a, b) => (b.year ?? 0) - (a.year ?? 0));
-    else if (sort === "popular")
-      list.sort(
-        (a, b) =>
-          (popularityOrder[a.popularity ?? ""] ?? 99) -
-          (popularityOrder[b.popularity ?? ""] ?? 99)
-      );
-    else
-      list.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
+    list.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
 
     return list;
-  }, [memes, query, origin, tag, sort]);
+  }, [memes, query, origin, tag]);
 
   return (
     <div style={{ fontFamily: "'MS PGothic', 'MS Gothic', sans-serif" }}>
@@ -119,19 +101,6 @@ export default function MemeGrid({ memes }: MemeGridProps) {
                     {t}
                   </option>
                 ))}
-              </select>
-            </td>
-            <td>
-              <select
-                value={sort}
-                onChange={(e) =>
-                  setSort(e.target.value as "new" | "year" | "popular")
-                }
-                style={{ fontSize: "11px", border: "1px inset #999" }}
-              >
-                <option value="new">新着順</option>
-                <option value="year">年代順</option>
-                <option value="popular">人気順</option>
               </select>
             </td>
             <td style={{ color: "#666" }}>{filtered.length}件</td>

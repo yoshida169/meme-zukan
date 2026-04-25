@@ -76,30 +76,6 @@ export default function RetroNav({ tags }: RetroNavProps) {
           </li>
           <li>
             <Link
-              href="/?sort=year"
-              style={{ color: "#0000cc", textDecoration: "none" }}
-            >
-              ▶ 年代順
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/?sort=popular"
-              style={{ color: "#0000cc", textDecoration: "none" }}
-            >
-              ▶ 人気順
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/timeline"
-              style={{ color: "#0000cc", textDecoration: "none" }}
-            >
-              ▶ ミーム年表
-            </Link>
-          </li>
-          <li>
-            <Link
               href="/ranking"
               style={{ color: "#cc0000", textDecoration: "none" }}
             >

@@ -161,40 +161,12 @@ describe("MemeGrid", () => {
   });
 
   describe("ソート", () => {
-    test("年代順ソートで年が新しいものが上に来る", async () => {
-      const memes = [
-        makeMeme({ id: "1", name: "古いミーム", year: 2000, createdAt: "2024-01-02T00:00:00.000Z" }),
-        makeMeme({ id: "2", name: "新しいミーム", year: 2023, createdAt: "2024-01-01T00:00:00.000Z" }),
-      ];
-      render(<MemeGrid memes={memes} />);
-      const select = screen.getByDisplayValue("新着順");
-      await userEvent.selectOptions(select, "year");
-
-      const items = screen.getAllByText(/ミーム/);
-      // 最初に表示されるのが新しいミームであること
-      expect(items[0].textContent).toBe("新しいミーム");
-    });
-
-    test("人気順ソートで🔥大流行が最初に来る", async () => {
-      const memes = [
-        makeMeme({ id: "1", name: "ニッチミーム", popularity: "🌱ニッチ", createdAt: "2024-01-02T00:00:00.000Z" }),
-        makeMeme({ id: "2", name: "大流行ミーム", popularity: "🔥大流行", createdAt: "2024-01-01T00:00:00.000Z" }),
-      ];
-      render(<MemeGrid memes={memes} />);
-      const select = screen.getByDisplayValue("新着順");
-      await userEvent.selectOptions(select, "popular");
-
-      const items = screen.getAllByText(/ミーム/);
-      expect(items[0].textContent).toBe("大流行ミーム");
-    });
-
-    test("新着順ソートでcreatedAtが新しいものが上に来る", async () => {
+    test("新着順でcreatedAtが新しいものが上に来る", () => {
       const memes = [
         makeMeme({ id: "1", name: "旧ミーム", createdAt: "2023-01-01T00:00:00.000Z" }),
         makeMeme({ id: "2", name: "新ミーム", createdAt: "2024-06-01T00:00:00.000Z" }),
       ];
       render(<MemeGrid memes={memes} />);
-      // デフォルトが新着順なので操作不要
       const items = screen.getAllByText(/ミーム/);
       expect(items[0].textContent).toBe("新ミーム");
     });

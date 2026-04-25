@@ -14,8 +14,6 @@ describe("RetroNav", () => {
   test("メニューリンクが表示される", () => {
     render(<RetroNav tags={[]} />);
     expect(screen.getByText("▶ トップ")).toBeInTheDocument();
-    expect(screen.getByText("▶ 年代順")).toBeInTheDocument();
-    expect(screen.getByText("▶ 人気順")).toBeInTheDocument();
     expect(screen.getByText("▶ サイト概要")).toBeInTheDocument();
   });
 
@@ -23,18 +21,6 @@ describe("RetroNav", () => {
     render(<RetroNav tags={[]} />);
     const link = screen.getByText("▶ トップ").closest("a");
     expect(link).toHaveAttribute("href", "/");
-  });
-
-  test("年代順リンクのhrefが/?sort=yearである", () => {
-    render(<RetroNav tags={[]} />);
-    const link = screen.getByText("▶ 年代順").closest("a");
-    expect(link).toHaveAttribute("href", "/?sort=year");
-  });
-
-  test("人気順リンクのhrefが/?sort=popularである", () => {
-    render(<RetroNav tags={[]} />);
-    const link = screen.getByText("▶ 人気順").closest("a");
-    expect(link).toHaveAttribute("href", "/?sort=popular");
   });
 
   test("全発祥元のリンクが表示される", () => {

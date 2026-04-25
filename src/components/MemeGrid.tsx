@@ -11,7 +11,6 @@ interface MemeGridProps {
 
 export default function MemeGrid({ memes }: MemeGridProps) {
   const searchParams = useSearchParams();
-  const [origin, setOrigin] = useState(searchParams.get("origin") ?? "");
   const [tag, setTag] = useState(searchParams.get("tag") ?? "");
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
 
@@ -19,19 +18,12 @@ export default function MemeGrid({ memes }: MemeGridProps) {
     () => Array.from(new Set(memes.flatMap((m) => m.tags))).sort(),
     [memes]
   );
-  const allOrigins = useMemo(
-    () =>
-      Array.from(new Set(memes.map((m) => m.origin).filter(Boolean))).sort(),
-    [memes]
-  );
-
   const filtered = useMemo(() => {
     let list = [...memes];
     if (query)
       list = list.filter((m) =>
         m.name.toLowerCase().includes(query.toLowerCase())
       );
-    if (origin) list = list.filter((m) => m.origin === origin);
     if (tag) list = list.filter((m) => m.tags.includes(tag));
 
     list.sort(
@@ -40,7 +32,7 @@ export default function MemeGrid({ memes }: MemeGridProps) {
     );
 
     return list;
-  }, [memes, query, origin, tag]);
+  }, [memes, query, tag]);
 
   return (
     <div style={{ fontFamily: "'MS PGothic', 'MS Gothic', sans-serif" }}>
@@ -74,20 +66,6 @@ export default function MemeGrid({ memes }: MemeGridProps) {
                   width: "140px",
                 }}
               />
-            </td>
-            <td>
-              <select
-                value={origin}
-                onChange={(e) => setOrigin(e.target.value)}
-                style={{ fontSize: "11px", border: "1px inset #999" }}
-              >
-                <option value="">発祥元: すべて</option>
-                {allOrigins.map((o) => (
-                  <option key={o} value={o!}>
-                    {o}
-                  </option>
-                ))}
-              </select>
             </td>
             <td>
               <select

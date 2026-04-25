@@ -3,7 +3,7 @@ import type {
   PageObjectResponse,
   QueryDataSourceResponse,
 } from "@notionhq/client/build/src/api-endpoints";
-import type { Meme, Origin, Popularity } from "@/types/meme";
+import type { Meme } from "@/types/meme";
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const DATABASE_ID = process.env.NOTION_DATABASE_ID!;
@@ -95,11 +95,9 @@ function pageToMeme(page: PageObjectResponse): Meme {
     slug: extractRichText(page, "slug") || page.id,
     description: extractRichText(page, "description"),
     thumbnailUrl: extractThumbnail(page),
-    origin: extractSelect(page, "origin") as Origin | null,
     tags: extractMultiSelect(page, "tags"),
     year: extractNumber(page, "year"),
     status: (extractSelect(page, "status") ?? "draft") as "draft" | "published",
-    popularity: extractSelect(page, "popularity") as Popularity | null,
     sourceUrl: extractUrl(page, "sourceUrl"),
     createdAt:
       page.properties["createdAt"]?.type === "created_time"

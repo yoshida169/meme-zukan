@@ -32,11 +32,9 @@ function makeMeme(overrides: Partial<Meme> = {}): Meme {
     slug: "test-meme",
     description: "説明文",
     thumbnailUrl: null,
-    origin: "Twitter/X",
     tags: ["猫"],
     year: 2020,
     status: "published",
-    popularity: "🔥大流行",
     sourceUrl: null,
     createdAt: "2024-01-01T00:00:00.000Z",
     ...overrides,
@@ -81,19 +79,6 @@ describe("MemeGrid", () => {
       expect(screen.getByRole("option", { name: "犬" })).toBeInTheDocument();
     });
 
-    test("発祥元がフィルター選択肢に表示される", () => {
-      const memes = [
-        makeMeme({ id: "1", origin: "Twitter/X" }),
-        makeMeme({ id: "2", origin: "Reddit" }),
-      ];
-      render(<MemeGrid memes={memes} />);
-      expect(
-        screen.getByRole("option", { name: "Twitter/X" })
-      ).toBeInTheDocument();
-      expect(
-        screen.getByRole("option", { name: "Reddit" })
-      ).toBeInTheDocument();
-    });
   });
 
   describe("テキスト検索", () => {
@@ -130,22 +115,8 @@ describe("MemeGrid", () => {
     });
   });
 
-  describe("発祥元フィルター", () => {
-    test("発祥元を選択するとそのミームだけ表示される", async () => {
-      const memes = [
-        makeMeme({ id: "1", name: "ツイッタームーム", origin: "Twitter/X" }),
-        makeMeme({ id: "2", name: "レディットミーム", origin: "Reddit" }),
-      ];
-      render(<MemeGrid memes={memes} />);
-      const select = screen.getByDisplayValue("発祥元: すべて");
-      await userEvent.selectOptions(select, "Twitter/X");
 
-      expect(screen.getByText("ツイッタームーム")).toBeInTheDocument();
-      expect(screen.queryByText("レディットミーム")).toBeNull();
-    });
-  });
-
-  describe("タグフィルター", () => {
+describe("タグフィルター", () => {
     test("タグを選択するとそのタグを持つミームだけ表示される", async () => {
       const memes = [
         makeMeme({ id: "1", name: "ネコミーム", tags: ["猫"] }),

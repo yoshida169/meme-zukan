@@ -23,20 +23,6 @@ describe("RetroNav", () => {
     expect(link).toHaveAttribute("href", "/");
   });
 
-  test("全発祥元のリンクが表示される", () => {
-    render(<RetroNav tags={[]} />);
-    const origins = ["Twitter/X", "Reddit", "2ch", "TikTok", "YouTube", "Instagram", "その他"];
-    for (const origin of origins) {
-      expect(screen.getByText(`[${origin}]`)).toBeInTheDocument();
-    }
-  });
-
-  test("発祥元リンクに正しいhrefが設定される", () => {
-    render(<RetroNav tags={[]} />);
-    const link = screen.getByText("[Twitter/X]").closest("a");
-    expect(link).toHaveAttribute("href", `/?origin=${encodeURIComponent("Twitter/X")}`);
-  });
-
   test("tagsが空のときタグセクションは表示されない", () => {
     render(<RetroNav tags={[]} />);
     expect(screen.queryByText("■ タグで探す")).toBeNull();

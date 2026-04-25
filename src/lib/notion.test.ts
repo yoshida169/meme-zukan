@@ -50,17 +50,12 @@ function makePage(overrides: Partial<FakePage> = {}): FakePage {
           },
         ],
       },
-      origin: {
-        type: "select",
-        select: { name: "Twitter/X" },
-      },
       tags: {
         type: "multi_select",
         multi_select: [{ name: "猫" }, { name: "音楽" }],
       },
       year: { type: "number", number: 2020 },
       status: { type: "select", select: { name: "published" } },
-      popularity: { type: "select", select: { name: "🔥大流行" } },
       sourceUrl: { type: "url", url: "https://example.com" },
       createdAt: {
         type: "created_time",
@@ -110,11 +105,9 @@ describe("getAllMemes", () => {
       slug: "test-meme",
       description: "説明文",
       thumbnailUrl: "https://example.com/img.png",
-      origin: "Twitter/X",
       tags: ["猫", "音楽"],
       year: 2020,
       status: "published",
-      popularity: "🔥大流行",
       sourceUrl: "https://example.com",
       createdAt: "2024-01-02T00:00:00.000Z",
     });
@@ -194,11 +187,9 @@ describe("getAllMemes", () => {
     expect(meme.slug).toBe("minimal-1"); // id にフォールバック
     expect(meme.description).toBe("");
     expect(meme.thumbnailUrl).toBeNull();
-    expect(meme.origin).toBeNull();
     expect(meme.tags).toEqual([]);
     expect(meme.year).toBeNull();
     expect(meme.status).toBe("draft");
-    expect(meme.popularity).toBeNull();
     expect(meme.sourceUrl).toBeNull();
     expect(meme.createdAt).toBe("2023-12-31T00:00:00.000Z");
   });

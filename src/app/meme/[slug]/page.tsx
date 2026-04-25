@@ -119,52 +119,12 @@ export default async function MemePage({ params }: Props) {
                         color: "#fff",
                         fontWeight: "bold",
                         padding: "2px 4px",
-                        width: "60px",
-                      }}
-                    >
-                      発祥元
-                    </td>
-                    <td style={{ padding: "2px 4px" }}>
-                      {meme.origin ? (
-                        <Link
-                          href={`/?origin=${encodeURIComponent(meme.origin)}`}
-                          style={{ color: "#0000cc" }}
-                        >
-                          {meme.origin}
-                        </Link>
-                      ) : (
-                        "不明"
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      style={{
-                        background: "#003399",
-                        color: "#fff",
-                        fontWeight: "bold",
-                        padding: "2px 4px",
                       }}
                     >
                       流行年
                     </td>
                     <td style={{ padding: "2px 4px" }}>
                       {meme.year ? `${meme.year}年` : "不明"}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      style={{
-                        background: "#003399",
-                        color: "#fff",
-                        fontWeight: "bold",
-                        padding: "2px 4px",
-                      }}
-                    >
-                      人気度
-                    </td>
-                    <td style={{ padding: "2px 4px" }}>
-                      {meme.popularity ?? "不明"}
                     </td>
                   </tr>
                   {meme.sourceUrl && (

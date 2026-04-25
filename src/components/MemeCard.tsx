@@ -6,11 +6,6 @@ interface MemeCardProps {
   meme: Meme;
 }
 
-const popularityColor: Record<string, string> = {
-  "🔥大流行": "#cc0000",
-  "😊中規模": "#006600",
-  "🌱ニッチ": "#666666",
-};
 
 export default function MemeCard({ meme }: MemeCardProps) {
   return (
@@ -143,22 +138,6 @@ export default function MemeCard({ meme }: MemeCardProps) {
                   {meme.year}年
                 </span>
               )}
-            </td>
-            <td
-              align="right"
-              style={{
-                background: "#f5f5f5",
-                borderTop: "1px solid #ddd",
-                padding: "2px 4px",
-                fontSize: "10px",
-                color: meme.popularity
-                  ? popularityColor[meme.popularity]
-                  : "#999",
-                fontWeight: "bold",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {meme.popularity ?? ""}
             </td>
           </tr>
         </tbody>

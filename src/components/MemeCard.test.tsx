@@ -25,11 +25,9 @@ const baseMeme: Meme = {
   slug: "test-meme",
   description: "これはテスト用の説明文です。",
   thumbnailUrl: "https://example.com/img.png",
-  origin: "Twitter/X",
   tags: ["猫", "音楽", "2ch"],
   year: 2020,
   status: "published",
-  popularity: "🔥大流行",
   sourceUrl: "https://example.com",
   createdAt: "2024-01-01T00:00:00.000Z",
 };
@@ -101,13 +99,4 @@ describe("MemeCard", () => {
     expect(screen.queryByText(/年/)).toBeNull();
   });
 
-  test("popularity が表示される", () => {
-    render(<MemeCard meme={baseMeme} />);
-    expect(screen.getByText("🔥大流行")).toBeInTheDocument();
-  });
-
-  test("popularity が null のときは空欄", () => {
-    render(<MemeCard meme={{ ...baseMeme, popularity: null }} />);
-    expect(screen.queryByText(/大流行|中規模|ニッチ/)).toBeNull();
-  });
 });

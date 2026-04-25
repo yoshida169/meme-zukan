@@ -4,15 +4,6 @@ interface RetroNavProps {
   tags: string[];
 }
 
-const origins = [
-  "Twitter/X",
-  "Reddit",
-  "2ch",
-  "TikTok",
-  "YouTube",
-  "Instagram",
-  "その他",
-];
 
 function NavSection({
   title,
@@ -85,29 +76,7 @@ export default function RetroNav({ tags }: RetroNavProps) {
         </ul>
       </NavSection>
 
-      <NavSection title="■ 発祥元で探す">
-        <ul
-          style={{
-            margin: 0,
-            padding: 0,
-            listStyle: "none",
-            lineHeight: "1.8",
-          }}
-        >
-          {origins.map((o) => (
-            <li key={o}>
-              <Link
-                href={`/?origin=${encodeURIComponent(o)}`}
-                style={{ color: "#0000cc", textDecoration: "none" }}
-              >
-                [{o}]
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </NavSection>
-
-      {tags.length > 0 && (
+{tags.length > 0 && (
         <NavSection title="■ タグで探す">
           <ul
             style={{

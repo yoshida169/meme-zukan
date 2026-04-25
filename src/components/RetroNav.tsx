@@ -98,7 +98,6 @@ export default function RetroNav({ tags }: RetroNavProps) {
               ▶ ミーム年表
             </Link>
           </li>
-<<<<<<< Updated upstream
           <li>
             <Link
               href="/ranking"
@@ -107,8 +106,6 @@ export default function RetroNav({ tags }: RetroNavProps) {
               ▶ 人気ランキング
             </Link>
           </li>
-=======
->>>>>>> Stashed changes
         </ul>
       </NavSection>
 

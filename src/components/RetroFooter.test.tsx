@@ -5,7 +5,7 @@ import RetroFooter from "./RetroFooter";
 describe("RetroFooter", () => {
   test("サイトタイトルが表示される", () => {
     render(<RetroFooter />);
-    expect(screen.getByText("★ネットミーム図鑑★")).toBeInTheDocument();
+    expect(screen.getByText("★ネットミーム博物館★")).toBeInTheDocument();
   });
 
   test("キャッチコピーが表示される", () => {

@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-ネットミーム図鑑 — インターネットミームを収集・記録する静的Webサイト。NotionデータベースをCMSとして使い、Next.js 16のSSG (`output: 'export'`) で静的HTMLを生成し、Cloudflare Pagesにデプロイする。
+ネットミーム博物館 — インターネットミームを収集・記録する静的Webサイト。NotionデータベースをCMSとして使い、Next.js 16のSSG (`output: 'export'`) で静的HTMLを生成し、Cloudflare Pagesにデプロイする。
 
 ## Commands
 
@@ -22,6 +22,7 @@ lint/format の設定はない。
 ## Environment Variables
 
 ビルド時に以下が必要:
+
 - `NOTION_API_KEY` — Notion APIキー
 - `NOTION_DATABASE_ID` — ミームデータベースのID
 - `NEXT_PUBLIC_WORKER_URL` — 閲覧数ランキング用 Worker の URL（未設定時は ViewTracker/RankingClient が no-op になりビルドは壊れない）

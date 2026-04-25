@@ -20,12 +20,12 @@ vi.mock("next/link", () => ({
 describe("RetroHeader", () => {
   test("サイトタイトルが表示される", () => {
     render(<RetroHeader />);
-    expect(screen.getByText("★ネットミーム図鑑★")).toBeInTheDocument();
+    expect(screen.getByText("★ネットミーム博物館★")).toBeInTheDocument();
   });
 
   test("タイトルのリンクが/に設定されている", () => {
     render(<RetroHeader />);
-    const link = screen.getByText("★ネットミーム図鑑★").closest("a");
+    const link = screen.getByText("★ネットミーム博物館★").closest("a");
     expect(link).toHaveAttribute("href", "/");
   });
 

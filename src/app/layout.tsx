@@ -5,10 +5,10 @@ import RetroNav from "@/components/RetroNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ネットミーム図鑑",
+  title: "ネットミーム博物館",
   description: "インターネットの歴史に残るネットミームを総まとめ！",
   openGraph: {
-    title: "ネットミーム図鑑",
+    title: "ネットミーム博物館",
     description: "インターネットの歴史に残るネットミームを総まとめ！",
     type: "website",
   },

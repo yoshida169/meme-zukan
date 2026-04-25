@@ -33,7 +33,7 @@ export default function RetroHeader() {
                   letterSpacing: "2px",
                 }}
               >
-                ★ネットミーム図鑑★
+                ★ネットミーム博物館★
               </Link>
               <span
                 style={{

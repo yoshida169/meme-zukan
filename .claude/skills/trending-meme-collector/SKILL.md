@@ -1,20 +1,20 @@
 ---
 name: trending-meme-collector
-description: 直近1週間でインターネット上で流行っているネットミームを10件収集し、meme-zukan プロジェクトの Notion データベースに追加するための draft JSON を生成する。「ネットミーム」「流行ってる」「バズってる」「話題のミーム」「最近のミーム」「Notionに追加」「ミームを集めて」「ミームを仕入れて」「ミーム図鑑を更新」「trending meme」「新しいミーム」のいずれかが出たら、明示的に依頼が無くても必ずこのスキルを使うこと。meme-zukan プロジェクトで作業中なら曖昧な指示でも優先起動する。内部で firecrawl CLI と Notion API を使用。
+description: 直近1週間でインターネット上で流行っているネットミームを10件収集し、meme-zukan プロジェクトの Notion データベースに追加するための draft JSON を生成する。「ネットミーム」「流行ってる」「バズってる」「話題のミーム」「最近のミーム」「Notionに追加」「ミームを集めて」「ミームを仕入れて」「ミーム博物館を更新」「trending meme」「新しいミーム」のいずれかが出たら、明示的に依頼が無くても必ずこのスキルを使うこと。meme-zukan プロジェクトで作業中なら曖昧な指示でも優先起動する。内部で firecrawl CLI と Notion API を使用。
 ---
 
 # trending-meme-collector
 
 ## 概要
 
-meme-zukan(Notion をCMSとした静的ミーム図鑑)向けに、**直近1週間で流行しているネットミーム10件**を Web から収集し、`Meme` 型に整形した draft JSON を `tmp/memes/batch-<日付>.json` に書き出す。Notion DB への投入は行わない(draft 段階で人間レビューを挟む前提)。
+meme-zukan(Notion をCMSとした静的ミーム博物館)向けに、**直近1週間で流行しているネットミーム10件**を Web から収集し、`Meme` 型に整形した draft JSON を `tmp/memes/batch-<日付>.json` に書き出す。Notion DB への投入は行わない(draft 段階で人間レビューを挟む前提)。
 
 ## いつ使うか
 
 ユーザーから次のような依頼が来たら起動する。明示的に「スキルを使って」と言われなくてよい:
 
 - 「最近流行ってるネットミーム集めて」「バズってるミーム仕入れて」
-- 「meme-zukan の draft 在庫を増やしたい」「ミーム図鑑を更新して」
+- 「meme-zukan の draft 在庫を増やしたい」「ミーム博物館を更新して」
 - 「Notion に入れる用にミーム10個ピックアップして」
 - 「trending meme this week 教えて」(ただし meme-zukan プロジェクト文脈下のみ)
 

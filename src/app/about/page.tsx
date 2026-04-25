@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "このサイトについて | ネットミーム図鑑",
-  description: "ネットミーム図鑑のサイト概要です。",
+  title: "このサイトについて | ネットミーム博物館",
+  description: "ネットミーム博物館のサイト概要です。",
 };
 
 export default function AboutPage() {
@@ -62,7 +62,7 @@ export default function AboutPage() {
                 }}
               >
                 <p style={{ margin: "0 0 8px" }}>
-                  <strong>ネットミーム図鑑</strong>
+                  <strong>ネットミーム博物館</strong>
                   は、インターネット上で流行したミームを収集・記録するサイトです。
                 </p>
                 <p style={{ margin: "0 0 8px" }}>

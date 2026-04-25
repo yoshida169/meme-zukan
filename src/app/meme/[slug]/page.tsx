@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const meme = await getMemeBySlug(slug);
   if (!meme) return {};
   return {
-    title: `${meme.name} | ネットミーム図鑑`,
+    title: `${meme.name} | ネットミーム博物館`,
     description: meme.description,
     openGraph: {
       title: meme.name,

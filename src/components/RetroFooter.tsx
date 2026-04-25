@@ -14,7 +14,7 @@ export default function RetroFooter() {
     >
       <div style={{ marginBottom: "4px" }}>
         <span style={{ color: "#ffff00", fontWeight: "bold" }}>
-          ★ネットミーム図鑑★
+          ★ネットミーム博物館★
         </span>
         &nbsp;―&nbsp;インターネットの歴史を後世に残す
       </div>

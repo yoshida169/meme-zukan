@@ -4,7 +4,7 @@ import { getAllMemes } from "@/lib/notion";
 import RankingClient from "./RankingClient";
 
 export const metadata: Metadata = {
-  title: "人気ランキング | ネットミーム図鑑",
+  title: "人気ランキング | ネットミーム博物館",
   description: "累計閲覧数で並べたネットミームの人気ランキング",
 };
 

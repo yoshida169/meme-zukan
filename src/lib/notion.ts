@@ -95,7 +95,6 @@ function pageToMeme(page: PageObjectResponse): Meme {
     slug: extractRichText(page, "slug") || page.id,
     description: extractRichText(page, "description"),
     thumbnailUrl: extractThumbnail(page),
-    tags: extractMultiSelect(page, "tags"),
     year: extractNumber(page, "year"),
     status: (extractSelect(page, "status") ?? "draft") as "draft" | "published",
     sourceUrl: extractUrl(page, "sourceUrl"),
@@ -150,11 +149,4 @@ export async function getMemeBySlug(slug: string): Promise<Meme | null> {
   );
   if (!page) return null;
   return pageToMeme(page);
-}
-
-export async function getAllTags(): Promise<string[]> {
-  const memes = await getAllMemes();
-  const tagSet = new Set<string>();
-  memes.forEach((m) => m.tags.forEach((t) => tagSet.add(t)));
-  return Array.from(tagSet).sort();
 }

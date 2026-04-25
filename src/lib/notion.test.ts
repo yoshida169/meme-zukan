@@ -105,7 +105,6 @@ describe("getAllMemes", () => {
       slug: "test-meme",
       description: "説明文",
       thumbnailUrl: "https://example.com/img.png",
-      tags: ["猫", "音楽"],
       year: 2020,
       status: "published",
       sourceUrl: "https://example.com",
@@ -187,7 +186,6 @@ describe("getAllMemes", () => {
     expect(meme.slug).toBe("minimal-1"); // id にフォールバック
     expect(meme.description).toBe("");
     expect(meme.thumbnailUrl).toBeNull();
-    expect(meme.tags).toEqual([]);
     expect(meme.year).toBeNull();
     expect(meme.status).toBe("draft");
     expect(meme.sourceUrl).toBeNull();
@@ -250,40 +248,6 @@ describe("getMemeBySlug", () => {
   });
 });
 
-describe("getAllTags", () => {
-  test("全ミームのタグをユニーク化してソートして返す", async () => {
-    queryMock.mockResolvedValueOnce({
-      results: [
-        makePage({
-          id: "a",
-          properties: {
-            ...makePage().properties,
-            tags: {
-              type: "multi_select",
-              multi_select: [{ name: "犬" }, { name: "猫" }],
-            },
-          },
-        }),
-        makePage({
-          id: "b",
-          properties: {
-            ...makePage().properties,
-            tags: {
-              type: "multi_select",
-              multi_select: [{ name: "猫" }, { name: "音楽" }],
-            },
-          },
-        }),
-      ],
-      has_more: false,
-      next_cursor: null,
-    });
-    const { getAllTags } = await loadNotion();
-
-    const tags = await getAllTags();
-    expect(tags).toEqual(["犬", "猫", "音楽"].sort());
-  });
-});
 
 describe("getDataSourceId のキャッシュ", () => {
   test("同一モジュール内では databases.retrieve を1度しか呼ばない", async () => {

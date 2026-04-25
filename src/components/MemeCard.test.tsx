@@ -25,7 +25,6 @@ const baseMeme: Meme = {
   slug: "test-meme",
   description: "これはテスト用の説明文です。",
   thumbnailUrl: "https://example.com/img.png",
-  tags: ["猫", "音楽", "2ch"],
   year: 2020,
   status: "published",
   sourceUrl: "https://example.com",
@@ -71,22 +70,6 @@ describe("MemeCard", () => {
   test("description が空のとき「説明なし」が表示される", () => {
     render(<MemeCard meme={{ ...baseMeme, description: "" }} />);
     expect(screen.getByText("説明なし")).toBeInTheDocument();
-  });
-
-  test("タグが最大3件表示される", () => {
-    render(<MemeCard meme={baseMeme} />);
-    expect(screen.getByText("猫")).toBeInTheDocument();
-    expect(screen.getByText("音楽")).toBeInTheDocument();
-    expect(screen.getByText("2ch")).toBeInTheDocument();
-  });
-
-  test("タグが4件以上でも先頭3件だけ表示される", () => {
-    const meme = {
-      ...baseMeme,
-      tags: ["猫", "音楽", "2ch", "4つ目"],
-    };
-    render(<MemeCard meme={meme} />);
-    expect(screen.queryByText("4つ目")).toBeNull();
   });
 
   test("year が設定されていると「XXXX年」が表示される", () => {

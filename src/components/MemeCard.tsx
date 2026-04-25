@@ -108,38 +108,21 @@ export default function MemeCard({ meme }: MemeCardProps) {
               )}
             </td>
           </tr>
-          <tr>
-            <td
-              style={{
-                background: "#f5f5f5",
-                borderTop: "1px solid #ddd",
-                padding: "2px 4px",
-                fontSize: "10px",
-              }}
-            >
-              {meme.tags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    display: "inline-block",
-                    background: "#003399",
-                    color: "#fff",
-                    padding: "0px 3px",
-                    marginRight: "2px",
-                    fontSize: "9px",
-                    borderRadius: "1px",
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-              {meme.year && (
-                <span style={{ color: "#666", marginLeft: "2px" }}>
-                  {meme.year}年
-                </span>
-              )}
-            </td>
-          </tr>
+          {meme.year && (
+            <tr>
+              <td
+                style={{
+                  background: "#f5f5f5",
+                  borderTop: "1px solid #ddd",
+                  padding: "2px 4px",
+                  fontSize: "10px",
+                  color: "#666",
+                }}
+              >
+                {meme.year}年
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </Link>

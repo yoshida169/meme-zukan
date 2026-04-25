@@ -11,20 +11,14 @@ interface MemeGridProps {
 
 export default function MemeGrid({ memes }: MemeGridProps) {
   const searchParams = useSearchParams();
-  const [tag, setTag] = useState(searchParams.get("tag") ?? "");
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
 
-  const allTags = useMemo(
-    () => Array.from(new Set(memes.flatMap((m) => m.tags))).sort(),
-    [memes]
-  );
   const filtered = useMemo(() => {
     let list = [...memes];
     if (query)
       list = list.filter((m) =>
         m.name.toLowerCase().includes(query.toLowerCase())
       );
-    if (tag) list = list.filter((m) => m.tags.includes(tag));
 
     list.sort(
       (a, b) =>
@@ -32,7 +26,7 @@ export default function MemeGrid({ memes }: MemeGridProps) {
     );
 
     return list;
-  }, [memes, query, tag]);
+  }, [memes, query]);
 
   return (
     <div style={{ fontFamily: "'MS PGothic', 'MS Gothic', sans-serif" }}>
@@ -66,20 +60,6 @@ export default function MemeGrid({ memes }: MemeGridProps) {
                   width: "140px",
                 }}
               />
-            </td>
-            <td>
-              <select
-                value={tag}
-                onChange={(e) => setTag(e.target.value)}
-                style={{ fontSize: "11px", border: "1px inset #999" }}
-              >
-                <option value="">タグ: すべて</option>
-                {allTags.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
             </td>
             <td style={{ color: "#666" }}>{filtered.length}件</td>
           </tr>

@@ -4,7 +4,6 @@ export interface Meme {
   slug: string;
   description: string;
   thumbnailUrl: string | null;
-  tags: string[];
   year: number | null;
   status: "draft" | "published";
   sourceUrl: string | null;

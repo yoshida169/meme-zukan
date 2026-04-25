@@ -1,10 +1,5 @@
 import Link from "next/link";
 
-interface RetroNavProps {
-  tags: string[];
-}
-
-
 function NavSection({
   title,
   children,
@@ -41,7 +36,7 @@ function NavSection({
   );
 }
 
-export default function RetroNav({ tags }: RetroNavProps) {
+export default function RetroNav() {
   return (
     <div
       style={{
@@ -75,30 +70,6 @@ export default function RetroNav({ tags }: RetroNavProps) {
           </li>
         </ul>
       </NavSection>
-
-{tags.length > 0 && (
-        <NavSection title="■ タグで探す">
-          <ul
-            style={{
-              margin: 0,
-              padding: 0,
-              listStyle: "none",
-              lineHeight: "1.8",
-            }}
-          >
-            {tags.map((t) => (
-              <li key={t}>
-                <Link
-                  href={`/tag/${encodeURIComponent(t)}`}
-                  style={{ color: "#660000", textDecoration: "none" }}
-                >
-                  [{t}]
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </NavSection>
-      )}
 
       <NavSection title="■ このサイトについて">
         <ul

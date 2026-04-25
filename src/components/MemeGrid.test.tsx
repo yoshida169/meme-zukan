@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event";
 import MemeGrid from "./MemeGrid";
 import type { Meme } from "@/types/meme";
 
-// next/navigation のモック
 vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
   useRouter: () => ({ push: vi.fn() }),
@@ -32,7 +31,6 @@ function makeMeme(overrides: Partial<Meme> = {}): Meme {
     slug: "test-meme",
     description: "説明文",
     thumbnailUrl: null,
-    tags: ["猫"],
     year: 2020,
     status: "published",
     sourceUrl: null,
@@ -65,20 +63,6 @@ describe("MemeGrid", () => {
       render(<MemeGrid memes={memes} />);
       expect(screen.getByText("2件")).toBeInTheDocument();
     });
-
-    test("タグがフィルター選択肢に表示される", () => {
-      const memes = [
-        makeMeme({ id: "1", tags: ["猫"] }),
-        makeMeme({ id: "2", tags: ["犬"] }),
-      ];
-      render(<MemeGrid memes={memes} />);
-      const select = screen.getByDisplayValue("タグ: すべて");
-      expect(select).toBeInTheDocument();
-      // option要素として猫と犬が存在する
-      expect(screen.getByRole("option", { name: "猫" })).toBeInTheDocument();
-      expect(screen.getByRole("option", { name: "犬" })).toBeInTheDocument();
-    });
-
   });
 
   describe("テキスト検索", () => {
@@ -115,22 +99,6 @@ describe("MemeGrid", () => {
     });
   });
 
-
-describe("タグフィルター", () => {
-    test("タグを選択するとそのタグを持つミームだけ表示される", async () => {
-      const memes = [
-        makeMeme({ id: "1", name: "ネコミーム", tags: ["猫"] }),
-        makeMeme({ id: "2", name: "イヌミーム", tags: ["犬"] }),
-      ];
-      render(<MemeGrid memes={memes} />);
-      const select = screen.getByDisplayValue("タグ: すべて");
-      await userEvent.selectOptions(select, "猫");
-
-      expect(screen.getByText("ネコミーム")).toBeInTheDocument();
-      expect(screen.queryByText("イヌミーム")).toBeNull();
-    });
-  });
-
   describe("ソート", () => {
     test("新着順でcreatedAtが新しいものが上に来る", () => {
       const memes = [
@@ -140,28 +108,6 @@ describe("タグフィルター", () => {
       render(<MemeGrid memes={memes} />);
       const items = screen.getAllByText(/ミーム/);
       expect(items[0].textContent).toBe("新ミーム");
-    });
-  });
-
-  describe("複合フィルター", () => {
-    test("テキスト検索とタグフィルターを同時に適用できる", async () => {
-      const memes = [
-        makeMeme({ id: "1", name: "ネコ動画", tags: ["猫", "動画"] }),
-        makeMeme({ id: "2", name: "ネコ画像", tags: ["猫", "画像"] }),
-        makeMeme({ id: "3", name: "イヌ動画", tags: ["犬", "動画"] }),
-      ];
-      render(<MemeGrid memes={memes} />);
-
-      const textInput = screen.getByPlaceholderText("ミーム名で検索");
-      await userEvent.type(textInput, "ネコ");
-
-      const tagSelect = screen.getByDisplayValue("タグ: すべて");
-      await userEvent.selectOptions(tagSelect, "動画");
-
-      expect(screen.getByText("ネコ動画")).toBeInTheDocument();
-      expect(screen.queryByText("ネコ画像")).toBeNull();
-      expect(screen.queryByText("イヌ動画")).toBeNull();
-      expect(screen.getByText("1件")).toBeInTheDocument();
     });
   });
 });

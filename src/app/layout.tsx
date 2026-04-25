@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import RetroHeader from "@/components/RetroHeader";
 import RetroFooter from "@/components/RetroFooter";
 import RetroNav from "@/components/RetroNav";
-import { getAllTags } from "@/lib/notion";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,8 +19,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const tags = await getAllTags();
-
   return (
     <html lang="ja">
       <body
@@ -59,7 +56,7 @@ export default async function RootLayout({
                     paddingTop: "8px",
                   }}
                 >
-                  <RetroNav tags={tags} />
+                  <RetroNav />
                 </td>
                 <td style={{ verticalAlign: "top", paddingTop: "6px" }}>
                   {children}

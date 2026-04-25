@@ -36,9 +36,7 @@ export default async function MemePage({ params }: Props) {
 
   const allMemes = await getAllMemes();
   const related = allMemes
-    .filter(
-      (m) => m.id !== meme.id && m.tags.some((t) => meme.tags.includes(t))
-    )
+    .filter((m) => m.id !== meme.id)
     .sort(() => Math.random() - 0.5)
     .slice(0, 5);
 
@@ -182,45 +180,6 @@ export default async function MemePage({ params }: Props) {
               >
                 {meme.description || "説明が登録されていません。"}
               </div>
-
-              {/* タグ */}
-              {meme.tags.length > 0 && (
-                <div style={{ marginTop: "8px" }}>
-                  <div
-                    style={{
-                      background: "#ff6600",
-                      color: "#fff",
-                      fontWeight: "bold",
-                      fontSize: "11px",
-                      padding: "2px 4px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    ■ タグ
-                  </div>
-                  <div>
-                    {meme.tags.map((tag) => (
-                      <Link
-                        key={tag}
-                        href={`/tag/${encodeURIComponent(tag)}`}
-                        style={{
-                          display: "inline-block",
-                          background: "#003399",
-                          color: "#fff",
-                          padding: "1px 6px",
-                          marginRight: "4px",
-                          marginBottom: "2px",
-                          fontSize: "11px",
-                          textDecoration: "none",
-                          border: "1px outset #6666cc",
-                        }}
-                      >
-                        {tag}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
             </td>
           </tr>
         </tbody>

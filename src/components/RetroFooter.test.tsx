@@ -14,11 +14,4 @@ describe("RetroFooter", () => {
       screen.getByText(/インターネットの歴史を後世に残す/)
     ).toBeInTheDocument();
   });
-
-  test("ジョーク文言が表示される", () => {
-    render(<RetroFooter />);
-    expect(
-      screen.getByText("ブラウザはInternet Explorer 6.0以上推奨（嘘）")
-    ).toBeInTheDocument();
-  });
 });

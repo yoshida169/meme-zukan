@@ -72,48 +72,6 @@ export default function AboutPage() {
                   情報は随時追加しています。懐かしいミームから最新のミームまで、幅広く掲載予定です。
                 </p>
               </div>
-
-              <div
-                style={{
-                  background: "#ff6600",
-                  color: "#fff",
-                  fontWeight: "bold",
-                  fontSize: "11px",
-                  padding: "2px 4px",
-                  marginBottom: "4px",
-                }}
-              >
-                ■ 技術情報
-              </div>
-              <div
-                style={{
-                  padding: "8px",
-                  background: "#fafafa",
-                  border: "1px solid #ddd",
-                  marginBottom: "10px",
-                }}
-              >
-                <table cellPadding={3} cellSpacing={1} style={{ fontSize: "11px" }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ background: "#003399", color: "#fff", padding: "2px 6px", fontWeight: "bold", whiteSpace: "nowrap" }}>フレームワーク</td>
-                      <td>Next.js (SSG)</td>
-                    </tr>
-                    <tr>
-                      <td style={{ background: "#003399", color: "#fff", padding: "2px 6px", fontWeight: "bold", whiteSpace: "nowrap" }}>データ管理</td>
-                      <td>Notion</td>
-                    </tr>
-                    <tr>
-                      <td style={{ background: "#003399", color: "#fff", padding: "2px 6px", fontWeight: "bold", whiteSpace: "nowrap" }}>ホスティング</td>
-                      <td>Cloudflare Pages</td>
-                    </tr>
-                    <tr>
-                      <td style={{ background: "#003399", color: "#fff", padding: "2px 6px", fontWeight: "bold", whiteSpace: "nowrap" }}>デプロイ</td>
-                      <td>GitHub Actions (6時間ごと自動更新)</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
             </td>
           </tr>
         </tbody>

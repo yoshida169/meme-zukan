@@ -18,9 +18,6 @@ export default function RetroFooter() {
         </span>
         &nbsp;―&nbsp;インターネットの歴史を後世に残す
       </div>
-      <div style={{ marginTop: "4px", color: "#88aaff", fontSize: "9px" }}>
-        ブラウザはInternet Explorer 6.0以上推奨（嘘）
-      </div>
     </div>
   );
 }

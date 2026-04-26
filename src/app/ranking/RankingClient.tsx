@@ -65,7 +65,7 @@ export default function RankingClient({ memes }: Props) {
           color: "#666",
         }}
       >
-        ランキング機能は現在準備中です（Worker URL が未設定）。
+        ランキング機能は現在準備中です。
       </div>
     );
   }

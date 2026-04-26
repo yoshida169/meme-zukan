@@ -45,7 +45,7 @@ export default async function RankingPage() {
           lineHeight: "1.5",
         }}
       >
-        ◆ 累計閲覧数で並べたトップ100。5分程度のキャッシュで更新されます。
+        ◆ 累計閲覧数で並べたトップ10。
       </div>
 
       <RankingClient memes={memes} />

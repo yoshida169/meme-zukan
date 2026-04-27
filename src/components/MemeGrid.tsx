@@ -13,20 +13,21 @@ export default function MemeGrid({ memes }: MemeGridProps) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
 
-  const filtered = useMemo(() => {
-    let list = [...memes];
-    if (query)
-      list = list.filter((m) =>
-        m.name.toLowerCase().includes(query.toLowerCase())
-      );
-
-    list.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-
+  const shuffled = useMemo(() => {
+    const list = [...memes];
+    for (let i = list.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [list[i], list[j]] = [list[j], list[i]];
+    }
     return list;
-  }, [memes, query]);
+  }, [memes]);
+
+  const filtered = useMemo(() => {
+    if (!query) return shuffled;
+    return shuffled.filter((m) =>
+      m.name.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [shuffled, query]);
 
   return (
     <div style={{ fontFamily: "'MS PGothic', 'MS Gothic', sans-serif" }}>

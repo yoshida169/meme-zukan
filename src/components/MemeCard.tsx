@@ -69,6 +69,7 @@ export default function MemeCard({ meme }: MemeCardProps) {
                     height: "100px",
                     display: "block",
                   }}
+                  loading="lazy"
                   unoptimized
                 />
               ) : (

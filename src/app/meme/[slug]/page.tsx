@@ -34,12 +34,6 @@ export default async function MemePage({ params }: Props) {
   const meme = await getMemeBySlug(slug);
   if (!meme) notFound();
 
-  const allMemes = await getAllMemes();
-  const related = allMemes
-    .filter((m) => m.id !== meme.id)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 5);
-
   return (
     <div style={{ fontFamily: "'MS PGothic', 'MS Gothic', sans-serif" }}>
       {/* パンくず */}
@@ -184,92 +178,6 @@ export default async function MemePage({ params }: Props) {
           </tr>
         </tbody>
       </table>
-
-      {/* 関連ミーム */}
-      {related.length > 0 && (
-        <div style={{ marginTop: "12px" }}>
-          <div
-            style={{
-              background: "#003399",
-              color: "#ffffff",
-              fontSize: "12px",
-              fontWeight: "bold",
-              padding: "3px 6px",
-              marginBottom: "6px",
-            }}
-          >
-            ■ 関連ミーム
-          </div>
-          <table width="100%" cellPadding={0} cellSpacing={4}>
-            <tbody>
-              <tr>
-                {related.map((r) => (
-                  <td
-                    key={r.id}
-                    style={{ verticalAlign: "top", width: "18%" }}
-                  >
-                    <Link
-                      href={`/meme/${r.slug}`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <div
-                        style={{
-                          border: "1px solid #ccc",
-                          textAlign: "center",
-                          fontSize: "10px",
-                          fontFamily: "'MS PGothic', 'MS Gothic', sans-serif",
-                          background: "#f5f5f5",
-                          padding: "2px",
-                        }}
-                      >
-                        {r.thumbnailUrl ? (
-                          <Image
-                            src={r.thumbnailUrl}
-                            alt={r.name}
-                            width={80}
-                            height={60}
-                            style={{
-                              objectFit: "cover",
-                              width: "100%",
-                              height: "60px",
-                              display: "block",
-                            }}
-                            unoptimized
-                          />
-                        ) : (
-                          <div
-                            style={{
-                              height: "60px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              fontSize: "24px",
-                              background: "#ddd",
-                            }}
-                          >
-                            🌐
-                          </div>
-                        )}
-                        <div
-                          style={{
-                            color: "#0000cc",
-                            marginTop: "2px",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {r.name}
-                        </div>
-                      </div>
-                    </Link>
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
 
       <div style={{ marginTop: "12px", fontSize: "11px" }}>
         <Link href="/" style={{ color: "#0000cc" }}>

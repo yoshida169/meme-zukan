@@ -2,6 +2,10 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
+      "mcp__plugin_context7_context7__query-docs",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot",
+
       "WebFetch",
       "Read",
       "Glob",

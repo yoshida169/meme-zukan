@@ -71,7 +71,7 @@ export default async function MemePage({ params }: Props) {
                   border: "2px inset #cccccc",
                   background: "#f0f0f0",
                   textAlign: "center",
-                  minHeight: "150px",
+                  minHeight: "280px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -81,8 +81,8 @@ export default async function MemePage({ params }: Props) {
                   <Image
                     src={meme.thumbnailUrl}
                     alt={meme.name}
-                    width={200}
-                    height={150}
+                    width={340}
+                    height={280}
                     style={{ objectFit: "contain", maxWidth: "100%" }}
                     unoptimized
                   />

@@ -1,9 +1,19 @@
 import { Suspense } from "react";
 import { getAllMemes } from "@/lib/notion";
 import MemeGrid from "@/components/MemeGrid";
+import type { Meme } from "@/types/meme";
+
+function shuffle(list: Meme[]): Meme[] {
+  const result = [...list];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
 
 export default async function Home() {
-  const memes = await getAllMemes();
+  const memes = shuffle(await getAllMemes());
 
   return (
     <div>

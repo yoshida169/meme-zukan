@@ -61,11 +61,11 @@ export default async function MemePage({ params }: Props) {
       </div>
 
       {/* メインコンテンツ */}
-      <table width="100%" cellPadding={6} cellSpacing={0}>
+      <table className="meme-detail-table" cellPadding={6} cellSpacing={0}>
         <tbody>
           <tr>
             {/* サムネイル */}
-            <td style={{ width: "200px", verticalAlign: "top" }}>
+            <td className="meme-detail-image-cell">
               <div
                 style={{
                   border: "2px inset #cccccc",
@@ -148,7 +148,7 @@ export default async function MemePage({ params }: Props) {
             </td>
 
             {/* 説明 */}
-            <td style={{ verticalAlign: "top" }}>
+            <td className="meme-detail-desc-cell">
               <div
                 style={{
                   background: "#ff6600",

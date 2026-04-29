@@ -31,7 +31,8 @@ export default async function RootLayout({
       >
         <div
           style={{
-            maxWidth: "900px",
+            width: "95%",
+            maxWidth: "1200px",
             margin: "0 auto",
             background: "#ffffff",
             border: "1px solid #999999",
@@ -42,23 +43,16 @@ export default async function RootLayout({
           {/* メインレイアウト: サイドバー + コンテンツ */}
           <table
             width="100%"
-            cellPadding={6}
+            cellPadding={0}
             cellSpacing={0}
-            style={{ verticalAlign: "top" }}
+            className="layout-table"
           >
             <tbody>
               <tr>
-                <td
-                  style={{
-                    verticalAlign: "top",
-                    width: "140px",
-                    borderRight: "1px solid #cccccc",
-                    paddingTop: "8px",
-                  }}
-                >
+                <td className="layout-sidebar-cell">
                   <RetroNav />
                 </td>
-                <td style={{ verticalAlign: "top", paddingTop: "6px" }}>
+                <td className="layout-content-cell">
                   {children}
                 </td>
               </tr>

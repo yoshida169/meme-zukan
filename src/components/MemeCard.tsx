@@ -4,10 +4,11 @@ import type { Meme } from "@/types/meme";
 
 interface MemeCardProps {
   meme: Meme;
+  priority?: boolean;
 }
 
 
-export default function MemeCard({ meme }: MemeCardProps) {
+export default function MemeCard({ meme, priority = false }: MemeCardProps) {
   return (
     <Link
       href={`/meme/${meme.slug}`}
@@ -58,20 +59,25 @@ export default function MemeCard({ meme }: MemeCardProps) {
               }}
             >
               {meme.thumbnailUrl ? (
-                <Image
-                  src={meme.thumbnailUrl}
-                  alt={meme.name}
-                  width={160}
-                  height={100}
+                <div
                   style={{
-                    objectFit: "cover",
+                    position: "relative",
                     width: "100%",
                     height: "100px",
-                    display: "block",
                   }}
-                  loading="lazy"
-                  unoptimized
-                />
+                >
+                  <Image
+                    src={meme.thumbnailUrl}
+                    alt={meme.name}
+                    fill
+                    sizes="160px"
+                    style={{ objectFit: "cover", display: "block" }}
+                    {...(priority
+                      ? { priority: true }
+                      : { loading: "lazy" as const })}
+                    unoptimized
+                  />
+                </div>
               ) : (
                 <div
                   style={{

@@ -13,27 +13,17 @@ export default function MemeGrid({ memes }: MemeGridProps) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
 
-  const shuffled = useMemo(() => {
-    const list = [...memes];
-    for (let i = list.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [list[i], list[j]] = [list[j], list[i]];
-    }
-    return list;
-  }, [memes]);
-
   const filtered = useMemo(() => {
-    if (!query) return shuffled;
-    return shuffled.filter((m) =>
+    if (!query) return memes;
+    return memes.filter((m) =>
       m.name.toLowerCase().includes(query.toLowerCase())
     );
-  }, [shuffled, query]);
+  }, [memes, query]);
 
   return (
     <div style={{ fontFamily: "'MS PGothic', 'MS Gothic', sans-serif" }}>
       {/* フィルターバー */}
       <table
-        width="100%"
         cellPadding={3}
         cellSpacing={0}
         style={{
@@ -54,15 +44,16 @@ export default function MemeGrid({ memes }: MemeGridProps) {
                 placeholder="ミーム名で検索"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                className="search-input"
                 style={{
                   fontSize: "11px",
                   border: "1px inset #999",
                   padding: "1px 3px",
-                  width: "140px",
+                  width: "180px",
                 }}
               />
             </td>
-            <td style={{ color: "#666" }}>{filtered.length}件</td>
+            <td style={{ color: "#666", whiteSpace: "nowrap" }}>{filtered.length}件</td>
           </tr>
         </tbody>
       </table>
@@ -90,7 +81,9 @@ export default function MemeGrid({ memes }: MemeGridProps) {
             該当するミームが見つかりませんでした
           </div>
         ) : (
-          filtered.map((meme) => <MemeCard key={meme.id} meme={meme} />)
+          filtered.map((meme, index) => (
+            <MemeCard key={meme.id} meme={meme} priority={index < 16} />
+          ))
         )}
       </div>
     </div>

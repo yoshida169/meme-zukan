@@ -3,12 +3,14 @@ import Link from "next/link";
 function NavSection({
   title,
   children,
+  className,
 }: {
   title: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <div style={{ marginBottom: "8px" }}>
+    <div className={className} style={{ marginBottom: "8px" }}>
       <div
         style={{
           background: "#003399",
@@ -39,14 +41,13 @@ function NavSection({
 export default function RetroNav() {
   return (
     <div
+      className="retro-nav-inner"
       style={{
-        width: "130px",
-        minWidth: "130px",
         fontFamily: "'MS PGothic', 'MS Gothic', sans-serif",
         fontSize: "11px",
       }}
     >
-      <NavSection title="■ メニュー">
+      <NavSection title="■ メニュー" className="retro-nav-section">
         <ul
           style={{
             margin: 0,
@@ -71,7 +72,7 @@ export default function RetroNav() {
         </ul>
       </NavSection>
 
-      <NavSection title="■ このサイトについて">
+      <NavSection title="■ このサイトについて" className="retro-nav-section">
         <ul
           style={{
             margin: 0,
@@ -92,6 +93,7 @@ export default function RetroNav() {
       </NavSection>
 
       <div
+        className="retro-nav-notice"
         style={{
           background: "#ffffcc",
           border: "1px solid #cc9900",

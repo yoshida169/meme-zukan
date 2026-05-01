@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ビルド時にNotionからダウンロードされる画像キャッシュ
+/public/images/memes/

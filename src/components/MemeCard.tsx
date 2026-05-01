@@ -12,7 +12,7 @@ export default function MemeCard({ meme, priority = false }: MemeCardProps) {
   return (
     <Link
       href={`/meme/${meme.slug}`}
-      style={{ textDecoration: "none", color: "inherit" }}
+      style={{ textDecoration: "none", color: "inherit", display: "block" }}
     >
       <table
         cellPadding={0}
@@ -23,6 +23,7 @@ export default function MemeCard({ meme, priority = false }: MemeCardProps) {
           background: "#ffffff",
           cursor: "pointer",
           fontFamily: "'MS PGothic', 'MS Gothic', sans-serif",
+          tableLayout: "fixed",
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLTableElement).style.background = "#fffde0";
@@ -59,38 +60,27 @@ export default function MemeCard({ meme, priority = false }: MemeCardProps) {
               }}
             >
               {meme.thumbnailUrl ? (
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "100px",
-                  }}
-                >
-                  <Image
-                    src={meme.thumbnailUrl}
-                    alt={meme.name}
-                    fill
-                    sizes="160px"
-                    style={{ objectFit: "cover", display: "block" }}
-                    {...(priority
-                      ? { priority: true }
-                      : { loading: "lazy" as const })}
-                    unoptimized
-                  />
-                </div>
+                <Image
+                  src={meme.thumbnailUrl}
+                  alt={meme.name}
+                  width={200}
+                  height={100}
+                  style={{ objectFit: "cover", width: "100%", height: "100px", display: "block" }}
+                  {...(priority
+                    ? { priority: true }
+                    : { loading: "lazy" as const })}
+                  unoptimized
+                />
               ) : (
-                <div
-                  style={{
-                    height: "100px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "32px",
-                    background: "#dddddd",
-                  }}
-                >
-                  🌐
-                </div>
+                <Image
+                  src="/noimage.png"
+                  alt="NO IMAGE"
+                  width={200}
+                  height={100}
+                  style={{ objectFit: "cover", width: "100%", height: "100px", display: "block" }}
+                  loading="lazy"
+                  unoptimized
+                />
               )}
             </td>
           </tr>

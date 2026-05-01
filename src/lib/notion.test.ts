@@ -13,6 +13,10 @@ vi.mock("@notionhq/client", () => ({
   },
 }));
 
+vi.mock("./imageCache", () => ({
+  cacheImage: vi.fn((url: string) => Promise.resolve(url)),
+}));
+
 // fixtures ----------------------------------------------------
 type FakePage = {
   object: "page";

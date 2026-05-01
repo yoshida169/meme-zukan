@@ -60,9 +60,10 @@ export default function MemeGrid({ memes }: MemeGridProps) {
 
       {/* カードグリッド */}
       <div
+        className="meme-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+          gridTemplateColumns: "repeat(5, 1fr)",
           gap: "6px",
         }}
       >

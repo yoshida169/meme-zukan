@@ -4,6 +4,7 @@ import type {
   QueryDataSourceResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import type { Meme } from "@/types/meme";
+import { cacheImage } from "./imageCache";
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const DATABASE_ID = process.env.NOTION_DATABASE_ID!;
@@ -74,27 +75,27 @@ function extractUrl(page: PageObjectResponse, prop: string): string | null {
   return null;
 }
 
-function extractThumbnail(page: PageObjectResponse): string | null {
+async function extractThumbnail(page: PageObjectResponse): Promise<string | null> {
   const p = page.properties["thumbnail"];
   if (p?.type === "files" && p.files.length > 0) {
     const file = p.files[0];
     if (file.type === "external") return file.external.url;
-    if (file.type === "file") return file.file.url;
+    if (file.type === "file") return cacheImage(file.file.url, page.id);
   }
   if (page.cover) {
     if (page.cover.type === "external") return page.cover.external.url;
-    if (page.cover.type === "file") return page.cover.file.url;
+    if (page.cover.type === "file") return cacheImage(page.cover.file.url, page.id);
   }
   return null;
 }
 
-function pageToMeme(page: PageObjectResponse): Meme {
+async function pageToMeme(page: PageObjectResponse): Promise<Meme> {
   return {
     id: page.id,
     name: extractTitle(page, "name"),
     slug: extractRichText(page, "slug") || page.id,
     description: extractRichText(page, "description"),
-    thumbnailUrl: extractThumbnail(page),
+    thumbnailUrl: await extractThumbnail(page),
     year: extractNumber(page, "year"),
     status: (extractSelect(page, "status") ?? "draft") as "draft" | "published",
     sourceUrl: extractUrl(page, "sourceUrl"),
@@ -131,7 +132,7 @@ export async function getAllMemes(): Promise<Meme[]> {
     cursor = res.has_more ? (res.next_cursor ?? undefined) : undefined;
   } while (cursor);
 
-  return results.map(pageToMeme);
+  return Promise.all(results.map(pageToMeme));
 }
 
 export async function getMemeBySlug(slug: string): Promise<Meme | null> {
@@ -148,5 +149,5 @@ export async function getMemeBySlug(slug: string): Promise<Meme | null> {
     (r): r is PageObjectResponse => r.object === "page" && "properties" in r
   );
   if (!page) return null;
-  return pageToMeme(page);
+  return await pageToMeme(page);
 }

@@ -38,7 +38,7 @@ export default function MemeGrid({ memes }: MemeGridProps) {
             <td style={{ whiteSpace: "nowrap", fontWeight: "bold" }}>
               絞り込み：
             </td>
-            <td>
+            <td style={{ paddingRight: "10px" }}>
               <input
                 type="text"
                 placeholder="ミーム名で検索"

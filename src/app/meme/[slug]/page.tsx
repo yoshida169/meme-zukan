@@ -163,9 +163,9 @@ export default async function MemePage({ params }: Props) {
               </div>
               <div
                 style={{
-                  fontSize: "12px",
-                  lineHeight: "1.7",
-                  padding: "4px",
+                  fontSize: "14px",
+                  lineHeight: "1.8",
+                  padding: "6px",
                   background: "#fafafa",
                   border: "1px solid #ddd",
                   minHeight: "80px",

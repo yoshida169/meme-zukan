@@ -1,5 +1,6 @@
 import { handleNotionWebhook } from "./handlers/webhook";
 import { handleRanking } from "./handlers/ranking";
+import { handleSubmit } from "./handlers/submit";
 import { handleView } from "./handlers/view";
 import type { Env } from "./types";
 
@@ -16,6 +17,9 @@ export default {
     }
     if (url.pathname === "/api/ranking") {
       return handleRanking(request, env);
+    }
+    if (url.pathname === "/api/submit") {
+      return handleSubmit(request, env);
     }
 
     return handleNotionWebhook(request, env);

@@ -89,6 +89,14 @@ export default function RetroNav() {
               ▶ サイト概要
             </Link>
           </li>
+          <li>
+            <Link
+              href="/submit"
+              style={{ color: "#cc6600", textDecoration: "none" }}
+            >
+              ▶ 情報を提供する
+            </Link>
+          </li>
         </ul>
       </NavSection>
 
